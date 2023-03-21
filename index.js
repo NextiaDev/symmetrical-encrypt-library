@@ -1,39 +1,42 @@
 const crypto = require("crypto-js");
 
 class CryptoHelper {
-  constructor(secret, iv) {
+  constructor(secret, iv, initialWord = "", finalWord = "") {
     this.secret = crypto.enc.Utf8.parse(secret);
     this.iv = crypto.enc.Utf8.parse(iv);
+    this.initialWord = initialWord;
+    this.finalWord = finalWord;
   }
 
   encryptSingleValue = async (data) => {
-    let textEncrypt = null;
+    let textEncrypted = null;
     if (data) {
-      textEncrypt = crypto.AES.encrypt(data, this.secret, {
+      textEncrypted = crypto.AES.encrypt(data, this.secret, {
         iv: this.iv,
       }).toString();
+      textEncrypted = this.initialWord + textEncrypted + this.finalWord;
     }
-    return textEncrypt;
+    return textEncrypted;
   };
 
   decryptSingleValue = async (data) => {
-    let textValue = null;
+    let textDecrypted = null;
     if (data) {
-      let textDecrypted = crypto.AES.decrypt(data, this.secret, {
+      textDecrypted = crypto.AES.decrypt(data, this.secret, {
         iv: this.iv,
-      });
-      textValue = textDecrypted.toString(crypto.enc.Utf8);
+      }).toString(crypto.enc.Utf8);
     }
-    return textValue;
+    return textDecrypted;
   };
 
   encryptJsonValue = async (object, key) => {
     let jsonKeyValueEncrypt = object;
     if (JSON.stringify(object) !== {}) {
-      let textEncrypted = crypto.AES.encrypt(object[key], this.secret, {
+      const textEncrypted = crypto.AES.encrypt(object[key], this.secret, {
         iv: this.iv,
       }).toString();
-      jsonKeyValueEncrypt[key] = textEncrypted;
+      jsonKeyValueEncrypt[key] =
+        this.initialWord + textEncrypted + this.finalWord;
     }
     return jsonKeyValueEncrypt;
   };
@@ -43,9 +46,8 @@ class CryptoHelper {
     if (JSON.stringify(object) !== {}) {
       let textDecrypted = crypto.AES.decrypt(object[key], this.secret, {
         iv: this.iv,
-      });
-      let textValue = textDecrypted.toString(crypto.enc.Utf8);
-      jsonKeyDecrypted[key] = textValue;
+      }).toString(crypto.enc.Utf8);
+      jsonKeyDecrypted[key] = textDecrypted;
     }
     return jsonKeyDecrypted;
   };
