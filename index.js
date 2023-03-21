@@ -1,14 +1,17 @@
 const crypto = require("crypto-js");
 
 class CryptoHelper {
-  constructor(secret) {
-    this.secret = secret;
+  constructor(secret, iv) {
+    this.secret = crypto.enc.Utf8.parse(secret);
+    this.iv = crypto.enc.Utf8.parse(iv);
   }
 
   encryptSingleValue = async (data) => {
     let textEncrypt = null;
     if (data) {
-      textEncrypt = crypto.SHA256.encrypt(data, this.secret).toString();
+      textEncrypt = crypto.AES.encrypt(data, this.secret, {
+        iv: this.iv,
+      }).toString();
     }
     return textEncrypt;
   };
@@ -16,7 +19,9 @@ class CryptoHelper {
   decryptSingleValue = async (data) => {
     let textValue = null;
     if (data) {
-      let textDecrypted = crypto.SHA256.decrypt(data, this.secret);
+      let textDecrypted = crypto.AES.decrypt(data, this.secret, {
+        iv: this.iv,
+      });
       textValue = textDecrypted.toString(crypto.enc.Utf8);
     }
     return textValue;
@@ -25,10 +30,9 @@ class CryptoHelper {
   encryptJsonValue = async (object, key) => {
     let jsonKeyValueEncrypt = object;
     if (JSON.stringify(object) !== {}) {
-      let textEncrypted = crypto.SHA256.encrypt(
-        object[key],
-        this.secret
-      ).toString();
+      let textEncrypted = crypto.AES.encrypt(object[key], this.secret, {
+        iv: this.iv,
+      }).toString();
       jsonKeyValueEncrypt[key] = textEncrypted;
     }
     return jsonKeyValueEncrypt;
@@ -37,7 +41,9 @@ class CryptoHelper {
   decryptJsonValue = async (object, key) => {
     let jsonKeyDecrypted = object;
     if (JSON.stringify(object) !== {}) {
-      let textDecrypted = crypto.SHA256.decrypt(object[key], this.secret);
+      let textDecrypted = crypto.AES.decrypt(object[key], this.secret, {
+        iv: this.iv,
+      });
       let textValue = textDecrypted.toString(crypto.enc.Utf8);
       jsonKeyDecrypted[key] = textValue;
     }
