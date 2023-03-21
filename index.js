@@ -1,4 +1,4 @@
-const crypto = require("crypto-js/sha256");
+const crypto = require("crypto-js");
 
 class CryptoHelper {
   constructor(secret) {
