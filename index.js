@@ -1,11 +1,11 @@
 const crypto = require("crypto-js");
 
 class CryptoHelper {
-  constructor(secret, iv) {
+  constructor(secret, iv, initialWord, finalWord) {
     this.secret = crypto.enc.Utf8.parse(secret);
     this.iv = crypto.enc.Utf8.parse(iv);
-    this.initialWord = "3NCRT14";
-    this.finalWord = ";";
+    this.initialWord = initialWord;
+    this.finalWord = finalWord;
   }
 
   encryptSingleValue = async (data) => {
@@ -14,7 +14,10 @@ class CryptoHelper {
       textEncrypted = crypto.AES.encrypt(data, this.secret, {
         iv: this.iv,
       }).toString();
-      textEncrypted = this.initialWord + textEncrypted + this.finalWord;
+      textEncrypted =
+        this.initialWord && this.finalWord
+          ? this.initialWord + textEncrypted + this.finalWord
+          : textEncrypted;
     }
     return textEncrypted;
   };
@@ -22,7 +25,10 @@ class CryptoHelper {
   decryptSingleValue = async (data) => {
     let textDecrypted = null;
     if (data) {
-      const clearText = data.replace(this.initialWord, "").slice(0, -1);
+      const clearText =
+        this.initialWord && this.finalWord
+          ? data.replace(this.initialWord, "").slice(0, -1)
+          : data;
       textDecrypted = crypto.AES.decrypt(clearText, this.secret, {
         iv: this.iv,
       }).toString(crypto.enc.Utf8);
@@ -37,7 +43,9 @@ class CryptoHelper {
         iv: this.iv,
       }).toString();
       jsonKeyValueEncrypt[key] =
-        this.initialWord + textEncrypted + this.finalWord;
+        this.initialWord && this.finalWord
+          ? this.initialWord + textEncrypted + this.finalWord
+          : textEncrypted;
     }
     return jsonKeyValueEncrypt;
   };
@@ -45,7 +53,10 @@ class CryptoHelper {
   decryptJsonSingleValue = async (object, key) => {
     let jsonKeyDecrypted = object;
     if (JSON.stringify(object) !== {}) {
-      const clearText = object[key].replace(this.initialWord, "").slice(0, -1);
+      const clearText =
+        this.initialWord && this.finalWord
+          ? object[key].replace(this.initialWord, "").slice(0, -1)
+          : object[key];
       let textDecrypted = crypto.AES.decrypt(clearText, this.secret, {
         iv: this.iv,
       }).toString(crypto.enc.Utf8);
