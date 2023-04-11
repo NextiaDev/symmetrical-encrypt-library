@@ -39,7 +39,9 @@ export class CryptoHelper {
     if (text) {
       const clearText =
         CryptoHelper.initialWord && CryptoHelper.finalWord
-          ? text.replace(CryptoHelper.initialWord, "").slice(0, -1)
+          ? text
+              .replace(CryptoHelper.initialWord, "")
+              .replace(CryptoHelper.finalWord, "")
           : text;
       textDecrypted = crypto.AES.decrypt(clearText, CryptoHelper.secretKey, {
         iv: CryptoHelper.ivKey,
@@ -71,7 +73,9 @@ export class CryptoHelper {
     if (Object.keys(object).length !== 0) {
       const clearText =
         CryptoHelper.initialWord && CryptoHelper.finalWord
-          ? object[key].replace(CryptoHelper.initialWord, "").slice(0, -1)
+          ? object[key]
+              .replace(CryptoHelper.initialWord, "")
+              .replace(CryptoHelper.finalWord, "")
           : object[key];
       let textDecrypted = crypto.AES.decrypt(
         clearText,

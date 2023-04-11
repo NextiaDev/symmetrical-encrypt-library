@@ -27,7 +27,9 @@ class CryptoHelper {
     if (data) {
       const clearText =
         this.initialWord && this.finalWord
-          ? data.replace(this.initialWord, "").slice(0, -1)
+          ? data
+              .replace(this.initialWord, "")
+              .replace(CryptoHelper.finalWord, "")
           : data;
       textDecrypted = crypto.AES.decrypt(clearText, this.secret, {
         iv: this.iv,
@@ -55,7 +57,9 @@ class CryptoHelper {
     if (JSON.stringify(object) !== {}) {
       const clearText =
         this.initialWord && this.finalWord
-          ? object[key].replace(this.initialWord, "").slice(0, -1)
+          ? object[key]
+              .replace(this.initialWord, "")
+              .replace(CryptoHelper.finalWord, "")
           : object[key];
       let textDecrypted = crypto.AES.decrypt(clearText, this.secret, {
         iv: this.iv,
