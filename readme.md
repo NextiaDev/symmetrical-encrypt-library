@@ -10,4 +10,4 @@
    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
    // @ts-ignore
 
-### Evitar usar signos especiales de las expresiones regulares en la palabra de inicio y final, ejemplo: $ ^ \ ( ) ? + - . | { } [ ] /\*
+### Evitar usar signos especiales de las expresiones regulares en la palabra de inicio y final, ejemplo: $ ^ \ ( ) ? + - . | { } [ ] / * \\*
