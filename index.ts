@@ -35,8 +35,8 @@ export class CryptoHelper {
   };
 
   decryptSingleValue = async (text: string) => {
+    console.log('=##############################################====');
     let textDecrypted = null;
-    console.clear();
     console.log("#1");
     console.log(CryptoHelper);
     if (text) {
