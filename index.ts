@@ -21,6 +21,7 @@ export class CryptoHelper {
   }
 
   encryptSingleValue = async (text: string) => {
+    console.log('EN=##############################################====');
     let textEncrypted = null;
     if (text) {
       textEncrypted = crypto.AES.encrypt(text, CryptoHelper.secretKey, {
@@ -35,7 +36,7 @@ export class CryptoHelper {
   };
 
   decryptSingleValue = async (text: string) => {
-    console.log('=##############################################====');
+    console.log('DE=##############################################====');
     let textDecrypted = null;
     console.log("#1");
     console.log(CryptoHelper);
