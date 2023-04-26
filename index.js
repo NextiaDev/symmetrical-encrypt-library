@@ -23,7 +23,6 @@ class CryptoHelper {
   };
 
   decryptSingleValue = async (data) => {
-    console.clear();
     console.log("############################");
     let textDecrypted = null;
     if (data) {
@@ -31,7 +30,8 @@ class CryptoHelper {
         this.initialWord && this.finalWord
           ? data.replace(this.initialWord, "").replace(this.finalWord, "")
           : data;
-      console.log("#1", clearText);
+      console.log("#1", data, clearText);
+      console.log("#2", this.secret, this.iv);
       textDecrypted = crypto.AES.decrypt(clearText, this.secret, {
         iv: this.iv,
       }).toString(crypto.enc.Utf8);
