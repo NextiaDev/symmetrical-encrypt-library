@@ -31,11 +31,11 @@ class CryptoHelper {
           ? data.replace(this.initialWord, "").replace(this.finalWord, "")
           : data;
       console.log("#1", data, clearText);
-      console.log("#2", this.secret, this.iv);
       textDecrypted = crypto.AES.decrypt(clearText, this.secret, {
         iv: this.iv,
       }).toString(crypto.enc.Utf8);
     }
+    console.log("#2", textDecrypted);
     return textDecrypted;
   };
 
