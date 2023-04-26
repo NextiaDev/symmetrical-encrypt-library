@@ -33,7 +33,7 @@ class CryptoHelper {
       console.log("#1", data, clearText);
       textDecrypted = crypto.AES.decrypt(clearText, this.secret, {
         iv: this.iv,
-      }).toString(crypto.enc.Utf8);
+      }).toString();
     }
     console.log("#2", textDecrypted);
     return textDecrypted;
