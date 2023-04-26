@@ -9,6 +9,7 @@ class CryptoHelper {
   }
 
   encryptSingleValue = async (data) => {
+    console.log("EN=##############################################====");
     let textEncrypted = null;
     if (data) {
       textEncrypted = crypto.AES.encrypt(data, this.secret, {
@@ -23,6 +24,7 @@ class CryptoHelper {
   };
 
   decryptSingleValue = async (data) => {
+    console.log("DE=##############################################====");
     let textDecrypted = null;
     if (data) {
       const clearText =
