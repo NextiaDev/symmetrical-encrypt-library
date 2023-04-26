@@ -36,17 +36,24 @@ export class CryptoHelper {
 
   decryptSingleValue = async (text: string) => {
     let textDecrypted = null;
+    console.clear();
+    console.log("#1");
+    console.log(CryptoHelper);
     if (text) {
+      console.log("#2");
       const clearText =
         CryptoHelper.initialWord && CryptoHelper.finalWord
           ? text
               .replace(CryptoHelper.initialWord, "")
               .replace(CryptoHelper.finalWord, "")
           : text;
+      console.log("#3");
+      console.log(clearText);
       textDecrypted = crypto.AES.decrypt(clearText, CryptoHelper.secretKey, {
         iv: CryptoHelper.ivKey,
       }).toString(crypto.enc.Utf8);
     }
+    console.log(textDecrypted);
     return textDecrypted;
   };
 
