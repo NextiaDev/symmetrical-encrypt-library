@@ -2,6 +2,7 @@ const crypto = require("crypto-js");
 
 class CryptoHelper {
   constructor(secret, iv, initialWord, finalWord) {
+    console.log("$", secret, iv);
     this.secret = crypto.enc.Utf8.parse(secret);
     this.iv = crypto.enc.Utf8.parse(iv);
     this.initialWord = initialWord;
