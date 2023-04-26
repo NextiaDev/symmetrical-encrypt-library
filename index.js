@@ -27,9 +27,7 @@ class CryptoHelper {
     if (data) {
       const clearText =
         this.initialWord && this.finalWord
-          ? data
-              .replace(this.initialWord, "")
-              .replace(CryptoHelper.finalWord, "")
+          ? data.replace(this.initialWord, "").replace(this.finalWord, "")
           : data;
       textDecrypted = crypto.AES.decrypt(clearText, this.secret, {
         iv: this.iv,

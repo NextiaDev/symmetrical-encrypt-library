@@ -11,3 +11,5 @@
    // @ts-ignore
 
 ### Evitar usar signos especiales de las expresiones regulares en la palabra de inicio y final, ejemplo: $ ^ \ ( ) ? + - . | { } [ ] / * \\*
+
+### No poner en el SECRET letras, signos, números o caracteres del mismo tipo de forma seguida, sin importar mayúscula o minúscula
