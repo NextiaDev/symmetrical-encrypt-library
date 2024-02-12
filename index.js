@@ -38,7 +38,7 @@ class CryptoHelper {
 
   encryptJsonSingleValue = async (object, key) => {
     let jsonKeyValueEncrypt = object;
-    if (JSON.stringify(object) !== {}) {
+    if (Object.keys(object).length !== 0) {
       const textEncrypted = crypto.AES.encrypt(object[key], this.secret, {
         iv: this.iv,
       }).toString();
@@ -52,7 +52,7 @@ class CryptoHelper {
 
   decryptJsonSingleValue = async (object, key) => {
     let jsonKeyDecrypted = object;
-    if (JSON.stringify(object) !== {}) {
+    if (Object.keys(object).length !== 0) {
       const clearText =
         this.initialWord && this.finalWord
           ? object[key]

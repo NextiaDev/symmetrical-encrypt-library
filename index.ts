@@ -1,11 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import crypto from "crypto-js";
-// const crypto: any = require("crypto-js");
 
 export class CryptoHelper {
-  static secretKey: string;
-  static ivKey: string;
+  static secretKey: string | any;
+  static ivKey: string | any;
   static initialWord: string;
   static finalWord: string;
   constructor(
